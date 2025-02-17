@@ -22,3 +22,15 @@ r1 = np.sum((ecart_moyenne_x * ecart_moyenne_y))
 r2 = math.sqrt( (np.sum((ecart_moyenne_x ** 2))) * (np.sum((ecart_moyenne_y ** 2))))
 # coefficient de correlation linéaire
 r = r1 / r2
+
+b1 = (r1) / (np.sum((ecart_moyenne_x ** 2)))
+b0 = (y_moyenne[0] - (b1 * x_moyenne[0]))[0]
+b1 = round(b1,4)
+b0 = round(b0,4)    
+
+print(f" Y = F(X) = { b1 }X + { b0 }")
+
+
+X = float(input("Entrer X(Surface d'une maison): "))
+Y = (b1 * X) + b0
+print(f" Valeur prédit Y(Prix): { Y }")
