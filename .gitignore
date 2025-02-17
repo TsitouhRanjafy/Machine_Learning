@@ -1,0 +1,9 @@
+.idea
+tutorial_env
+.env
+venv
+
+# Ignorer les fichiers compilés Python
+__pycache__/
+*.pyc
+*.pyo
