@@ -20,6 +20,5 @@ ecart_moyenne_y = np.subtract(y, y_moyenne)
 r1 = np.sum((ecart_moyenne_x * ecart_moyenne_y))
 # sqrt[sum[sqr(xi-x_moyenne)]*sum[sqr(yi-y_moyenne)]]
 r2 = math.sqrt( (np.sum((ecart_moyenne_x ** 2))) * (np.sum((ecart_moyenne_y ** 2))))
+# coefficient de correlation linéaire
 r = r1 / r2
-
-print(f"{ r }")
