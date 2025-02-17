@@ -1,5 +1,5 @@
-.idea
-tutorial_env
+./idea
+./tutorial_env
 .env
 venv
 
