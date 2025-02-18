@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 import math
 
 tab = np.genfromtxt('./maison.txt',delimiter=',')
@@ -11,8 +12,6 @@ y_moyenne = np.ones((np.size(y),1))
 x_moyenne[:,0] = (np.sum(x, None, dtype=np.float128) / len(x))
 y_moyenne[:,0] = (np.sum(y, None, dtype=np.float128) / len(y))
 
-ecart_moyenne_x = np.ones((np.size(x), 1))
-ecart_moyenne_y = np.ones((np.size(y), 1))
 ecart_moyenne_x = np.subtract(x, x_moyenne)
 ecart_moyenne_y = np.subtract(y, y_moyenne)
 
@@ -28,9 +27,32 @@ b0 = (y_moyenne[0] - (b1 * x_moyenne[0]))[0]
 b1 = round(b1,4)
 b0 = round(b0,4)    
 
-print(f" Y = F(X) = { b1 }X + { b0 }")
+print(f" Y = F(X) = { b1 }X + { b0 }") #  Y = F(X) = 134.5253X + 71270.4924
 
 
-X = float(input("Entrer X(Surface d'une maison): "))
-Y = (b1 * X) + b0
-print(f" Valeur prédit Y(Prix): { Y }")
+# X = float(input("Entrer X(Surface d'une maison): "))
+# Y = (b1 * X) + b0
+# print(f" Valeur prédit Y(Prix): { Y }")
+
+x_abscisse = x.reshape((1,-1)).tolist()[0]
+y_abscisse = y.reshape((1,-1)).tolist()[0]
+
+print(y_abscisse)
+plt.scatter(x_abscisse,y_abscisse,s=40,alpha=0.6,color='blue',label='donées réelles')
+plt.title("Répresentation Graphique")
+plt.legend()
+plt.grid()
+plt.show()
+
+y_predict = []
+
+
+
+
+
+
+
+
+
+
+
