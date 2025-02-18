@@ -29,22 +29,27 @@ b0 = round(b0,4)
 
 print(f" Y = F(X) = { b1 }X + { b0 }") #  Y = F(X) = 134.5253X + 71270.4924
 
-
-# X = float(input("Entrer X(Surface d'une maison): "))
-# Y = (b1 * X) + b0
-# print(f" Valeur prédit Y(Prix): { Y }")
-
 x_abscisse = x.reshape((1,-1)).tolist()[0]
 y_abscisse = y.reshape((1,-1)).tolist()[0]
 
-print(y_abscisse)
-plt.scatter(x_abscisse,y_abscisse,s=40,alpha=0.6,color='blue',label='donées réelles')
+# nuage de point pour le données réelles
 plt.title("Répresentation Graphique")
+plt.scatter(x_abscisse,y_abscisse,s=40,alpha=0.6,color='blue',label='donées réelles')
+
+y_prix_predict = []
+x_surface = []
+i = 800
+while i <= 5000:
+    y_prix_predict.append((b1 * i) + b0)
+    x_surface.append(i)
+    i += 10
+
+# régrassion linéaire
+plt.plot(x_surface,y_prix_predict,color='red',label='modèl de régression')
 plt.legend()
 plt.grid()
 plt.show()
 
-y_predict = []
 
 
 
