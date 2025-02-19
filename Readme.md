@@ -12,7 +12,31 @@
 
 ![representation graphique](https://github.com/user-attachments/assets/d3230659-56b4-473b-9a0d-e46ed31806e3)
 
-
+- Coefficient de corrélation
+  ```
+  r = 0.8549875928781252
+  ```
+- Somme des carrées des résidus
+  ```
+  SCR = 193464477600.73853
+  ```
+- Somme des carrées expliqué
+  ```
+  SCE = 525744536856.05493
+  ```
+- Somme des carrées totaux
+  ```
+  SCT = 719209014456.7935
+  ```
+- Variation résiduelle
+  ```
+  S²  = 4299210613.349745
+  ```
+- Coefficient de determination
+  ```
+  R²  = 0.7310038198744505
+  ```
+  
 ### Docs
 
 https://penseeartificielle.fr/introduction-au-machine-learning/
