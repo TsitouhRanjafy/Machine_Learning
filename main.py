@@ -1,77 +1,62 @@
 import numpy as np
-import matplotlib.pyplot as plt
-import math
 
-tab = np.genfromtxt('./maison.txt',delimiter=',')
 
-# donnés réelles
-x = tab[:,0].reshape((-1,1))
-y = tab[:,1].reshape((-1,1))
+dataset = np.genfromtxt('maison.txt', delimiter=",")
 
-x_moyenne = np.ones((np.size(x),1))
-y_moyenne = np.ones((np.size(y),1))
-x_moyenne[:,0] = (np.sum(x, None, dtype=np.float128) / len(x))
-y_moyenne[:,0] = (np.sum(y, None, dtype=np.float128) / len(y))
+# surface
+x1 = dataset[:,0].reshape(-1,1)
+# nombre chambre
+x2 = dataset[:,1].reshape(-1,1)
+# prix
+y = dataset[:,2].reshape(-1,1)
+y_moyenne = round((np.sum(y) / len(y)),3)
+x1_moyenne = round((np.sum(x1) / len(x1)),3)
+x2_moyenne = round((np.sum(x2) / len(x2)),3)
 
-ecart_moyenne_x = np.subtract(x, x_moyenne)
-ecart_moyenne_y = np.subtract(y, y_moyenne)
+datasetTemp = dataset
+dataset = np.ones((np.size(x1),4))
+dataset[:,1] = datasetTemp[:,0]
+dataset[:,2] = datasetTemp[:,1]
+dataset[:,3] = datasetTemp[:,2]
 
-# coéfficient de corrélation
-# sum[(xi-x_moyenne)(yi-y_moyenne)]
-r1 = np.sum((ecart_moyenne_x * ecart_moyenne_y))
-# sqrt[sum[sqr(xi-x_moyenne)]*sum[sqr(yi-y_moyenne)]]
-r2 = math.sqrt( (np.sum((ecart_moyenne_x ** 2))) * (np.sum((ecart_moyenne_y ** 2))))
-# coefficient de correlation linéaire
-r = r1 / r2
-print(f"r = { r }")
+# X | Y
+X = dataset[:,0:3].reshape(-1,3)
+Y = dataset[:,3].reshape(-1,1)
 
-b1 = r1 / (np.sum((ecart_moyenne_x ** 2)))
-b0 = (y_moyenne[0] - (b1 * x_moyenne[0]))[0]
-b1 = round(b1,4)
-b0 = round(b0,4)    
+# les coefficient B (b0,b1,b2) | ŷi
+B = np.linalg.inv(X.T @ X) @ X.T @ Y
+b0 = round(B[0][0],3)
+b1 = round(B[1][0],3)
+b2 = round(B[2][0],3)
+y_predict_x1_x2 = []
 
-print(f"Y = F(X) = { b1 }X + { b0 }") #  Y = F(X) = 134.5253X + 71270.4924
-
-x_abscisse = x.reshape((1,-1)).tolist()[0]
-y_abscisse = y.reshape((1,-1)).tolist()[0]
-
-# nuage de point pour les données réelles
-plt.title("Répresentation Graphique")
-plt.scatter(x_abscisse,y_abscisse,s=40,alpha=0.6,color='blue',label='donnés réelles')
-
-y_prix_predict_by_x = []
-x_surface = []
-i = 800
-while i <= 5000:
-    y_prix_predict_by_x.append((b1 * i) + b0)
-    x_surface.append(i)
-    i += 10
-
-# répresentation graphique de la régression linéaire
-plt.plot(x_surface,y_prix_predict_by_x,color='red',label='modèl de régression')
-plt.legend()
-plt.grid()
-
-# ei | SCR | SCE | SCT
-residue_of_observation = np.ones((np.size(x),1))
-y_predict = []
 i = 0
-while i < len(x):
-    y_predict.append((b1 * x[i][0]) + b0)
-    residue_of_observation[i][0] = y[i][0] - ((b1 * x[i][0]) + b0)
+while i < len(x1):
+    y_predict_x1_x2.append(b0 + (b1 * x1[i]) + (b2 * x2[i]))
     i += 1
-y_predict = np.array(y_predict).reshape((-1,1))
-SCR = np.sum(residue_of_observation ** 2)
-SCE = np.sum(np.subtract(y_predict,y_moyenne) ** 2)
-SCT = SCR + SCE
-R = SCE / SCT
+y_predict_x1_x2 = np.array(y_predict_x1_x2).reshape(-1,1)
 
-print(f"SCR = { SCR }")
-print(f"SCE = { SCE }")
-print(f"SCT = { SCT }")
-print(f"S²  = { SCR / (len(residue_of_observation) - 2) }")
-print(f"R²  = { R }")
-plt.show()
+# Residues | SCR | SCE | SCT | R²
+residues = np.subtract(y,y_predict_x1_x2)
+SCR = np.sum(residues ** 2)
+SCE = np.sum(np.subtract(y_predict_x1_x2,y_moyenne) ** 2)
+SCT = SCR + SCE
+S = SCR / (len(Y) - 3)
+R = 1 - (SCR / SCT)
+
+# function de régression
+def regression(x1,x2):
+    predict = b0 + (b1 * x1) + (b2 * x2)
+    return predict
+
+
+
+print(f"y = { b0 } + { b1 }x1 + { b2 }x2")
+print(f"SCR: { SCR }")
+print(f"SCE: { SCE }")
+print(f"SCT: { SCT }")
+print(f"R²: { R }")
+
 
 
 
