@@ -1,71 +1,66 @@
-# Régression Linéaire Simple Exemple
+# Régression Linéaire Multiple Exemple
 
-[Download Data](https://github.com/TsitouhRanjafy/Machine_Learning/blob/graphique/maison.txt)
-
-### Modèl de régression linéaire:
-
-```python
-  Y = F(X) = 134.5253X + 71270.4924
-```
-
-### Répresenation graphique
-
-![representation graphique](https://github.com/user-attachments/assets/d3230659-56b4-473b-9a0d-e46ed31806e3)
-
-- Coefficient de corrélation
-  ```
-  r = 0.8549875928781252
-  ```
-- Somme des carrées des résidus
-  ```
-  SCR = 193464477600.73853
-  ```
-- Somme des carrées expliqué
-  ```
-  SCE = 525744536856.05493
-  ```
-- Somme des carrées totaux
-  ```
-  SCT = 719209014456.7935
-  ```
-- Variation résiduelle
-  ```
-  S²  = 4299210613.349745
-  ```
-- Coefficient de determination
-  ```
-  R²  = 0.7310038198744505
-  ```
-  
-### Docs
-
-https://penseeartificielle.fr/introduction-au-machine-learning/
-https://penseeartificielle.fr/machine-learning-debutant-regression-lineaire-multivariee/
-[Tuto](https://ghajba.developpez.com/tutoriels/python/apprendre-numpy/)
-
-[openclassroom](https://openclassrooms.com/fr/courses/7771531-decouvrez-les-librairies-python-pour-la-data-science-1/7858285-tracez-des-graphiques-avec-matplotlib)
-
- ### 🔗 **Chaque représentation graphique a une fonction correspondante avec `Matplotlib`** :
+On cherche à modéliser la relation entre poids des bébés à naissance et l’âge, le
+poids et le statut tabagique de la mère durant la grossesse. On pose :
+- y = poids de naissance en grammes (bwt),
+- x1 = âge de la mère (age),
+- x2 = poids de la mère en kilos (weight),
+- x3 = statut tabagique de la mère pendant la grossesse (smoke) codée
+1=oui et 0=non.
+On suppose que cette relation est linéaire de la forme :
     
-- nuage de points ou scatter plot, en anglais :`scatter()`
+$$y = β_0 + β_1x_1 + β_2x_2 + β_3x_3$$
 
-- diagrammes en ligne ou en courbes :`plot()` 
+On veut **estimer** cette relation avec un modèle de **régression multiple**.
+On utilise un échantillon de **n = 1174** (bwt age weight smoke) naissances pour lesquelles le poids
+du bébé, l’âge, le poids et le statut tabagique de la mère, ont été mesurés.
 
-- diagrammes en barres :`bar()` 
+## 1. Le modèl 
 
-- histogrammes :`hist()`
+On cherche à modéliser la relation entre plus de 2 variables quantitatives.
+Un modèle de régression linéaire multiple est de la forme suivante :
 
-- diagrammes circulaires :`pie()` 
 
-### 🔗 **Il existe de nombreuses options pour personnaliser un nuage de points. On peut modifier** :
+$$y = β0 + \sum_{j=1}^p β_j x_j + \mathcal{E} $$
 
-- la couleur des points, en utilisant l’argument `color` ou `c` ;
+où:
 
-- la taille des points, via l’argument `size` ou `s` ;
+  - $y$ est la <a style="color :#4caf50">variable à expliquer</a>  (à valeurs dans $\mathbb{R}$) ;
+  - $x_1$, . . . , $x_p$ sont les <a style="color :  #03a9f4">variables explicatives</a> (à valeurs dans $\mathbb{R}$) ;
+  - $\mathcal{E}$ est le <a style="color : #e91e63">terme d’erreur</a> aléatoire du modèle ;
+  - $β_0, β_1, . . . , β_p$ sont les **paramètres à estimer**.
 
-- le type de marqueur via l’argument `marker` ;
 
-- la transparence des points via l’argument `alpha` .
+> - La désignation <a style="color : lightskyblue">multiple</a>  fait référence au fait qu’il y a plusieurs variables
+> explicatives xj pour expliquer y.
+> - La désignation <a style="color : lightskyblue">linéaire</a>  correspond au fait que le modèle (1) est linéaire.
+
+Pour <a style="color : #e91e63">n observations</a> , on peut écrire le modèle de régression linéaire multiple
+sous la forme :
+
+$$y_i = β_0 + \sum_{j=1}^pβ_jx_{ij} + \mathcal{E}_i $$ pour i = 
+
+Dans ce chapitre, on suppose que :
+- $\mathcal{E}_i$ est une variable aléatoire, non observée,
+- $x_{ij}$ est observé et non aléatoire,
+- $y_i$ est observé et aléatoire.
+
+<a style="color : lightskyblue">text</a> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
